@@ -8,45 +8,48 @@ import EmployersAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
 
-class  App extends Component {
-
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [
-        {name: "John C.", salary: 800, increase: false, id: 1},
-        {name: "Alex M.", salary: 3000, increase: false, id: 2},
-        {name: "Carl W.", salary: 25000, increase: true, id: 3}
-      ]
-    }
+        { name: "John C.", salary: 800, increase: false, id: 1 },
+        { name: "Alex M.", salary: 3000, increase: false, id: 2 },
+        { name: "Carl W.", salary: 25000, increase: true, id: 3 },
+      ],
+    };
+    this.maxId = 9;
   }
 
- 
-  
-  
+  deleteItem = (id) => {
+    this.setState(({ data }) => {
+      const newData = data.filter((item) => item.id !== id);
+
+      return {
+        data: newData,
+      };
+    });
+  }
+
+
+
   render() {
-    const {data} = this.state
+    const { data } = this.state;
 
     return (
       <div className="app">
         <AppInfo />
-  
+
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
         </div>
-  
-        <EmployersList 
-        data ={data}
-        onDelete={id => {console.log(id)}}/>
-        <EmployersAddForm />
+
+        <EmployersList data={data} onDelete={this.deleteItem} />
+        <EmployersAddForm onAdd={this.addItem}/>
       </div>
     );
   }
-  
-
-
-
 }
 
 export default App;
