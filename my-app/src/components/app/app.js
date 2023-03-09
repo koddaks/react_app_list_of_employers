@@ -31,38 +31,18 @@ class App extends Component {
     });
   };
 
-  onToggleIncrease = (id) => {
-    // this.setState(({data}) => {
-    //   const index = data.findIndex(elem => elem.id === id)
-
-    //   const oldItem = data[index];
-    //   const newItem = {...oldItem, increase: !oldItem.increase};
-    //   const newData = [...data.slice(0, index), newItem, ...data.slice(index + 1)]
-
-    //   return {
-    //     data: newData
-    //   }
-    // })
-    this.setState(({data}) => ({
-      data: data.map(item => {
+  onToggleProp = (id, prop) => {  
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
         if (item.id === id) {
-          return {...item, increase: !item.increase}
+          return { ...item, [prop]: !item[prop] };
         }
         return item;
-      })
-    }))
+      }),
+    }));
   };
 
-  onToggleRise = (id) => {
-    this.setState(({data}) => ({
-      data: data.map(item => {
-        if (item.id === id) {
-          return {...item, rise: !item.rise}
-        }
-        return item;
-      })
-    }))
-  };
+  
 
   addItem = (name, salary) => {
     const newItem = {
@@ -83,21 +63,25 @@ class App extends Component {
 
   render() {
     const { data } = this.state;
+    const emlpoyers = data.length;
+    const increased = data.filter((item) => item.increase).length;
 
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo emlpoyers={emlpoyers} 
+        increased={increased} />
 
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
         </div>
 
-        <EmployersList 
-            data={data} 
-            onDelete={this.deleteItem}
-            onToggleIncrease={this.onToggleIncrease} 
-            onToggleRise={this.onToggleRise}/>
+        <EmployersList
+          data={data}
+          onDelete={this.deleteItem}
+          onToggleProp={this.onToggleProp}
+          
+        />
         <EmployersAddForm onAdd={this.addItem} />
       </div>
     );
