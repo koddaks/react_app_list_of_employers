@@ -68,7 +68,8 @@ class App extends Component {
 
     return (
       <div className="app">
-        <AppInfo emlpoyers={emlpoyers} 
+        <AppInfo 
+        emlpoyers={emlpoyers} 
         increased={increased} />
 
         <div className="search-panel">
