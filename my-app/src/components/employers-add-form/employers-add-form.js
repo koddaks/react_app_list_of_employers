@@ -8,6 +8,7 @@ class EmployersAddForm extends Component {
     this.state = {
       name: "",
       salary: "",
+      error: false
     };
   }
 
@@ -49,6 +50,7 @@ class EmployersAddForm extends Component {
       <div className="app-add-form">
         <h3>Добавьте нового сотрудника</h3>
         <form className="add-form d-flex" onSubmit={this.onSubmit}>
+          {/* {error && <span>Not valid lengh</span>} */}
           <input
             type="text"
             className={inputClassNames}
